@@ -1,0 +1,450 @@
+/* === Color Variables === */
+:root {
+    --bg-start: #0f0c29;
+    --bg-middle: #302b63;
+    --bg-end: #24243e;
+    --accent: #00d2ff; /* Cyan Blue for a tech feel */
+    --accent-hover: #3a7bd5;
+    --text-white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-middle), var(--bg-end));
+    color: var(--text-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* === Floating Background Glow === */
+.background-blob {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+    animation: pulse 10s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+/* === Header === */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-white);
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+    line-height: 1.1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 35px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--accent);
+}
+
+.btn-contact {
+    padding: 8px 20px;
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    color: var(--accent) !important;
+}
+
+.btn-contact:hover {
+    background: var(--accent);
+    color: #fff !important;
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* === Hero Section === */
+.hero {
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+.hero-content {
+    max-width: 600px;
+    z-index: 2;
+}
+
+.hero-content h3 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.typing-container {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #ddd;
+    height: 3rem; /* Fixed height to prevent jumping */
+}
+
+.typing-text {
+    color: var(--accent);
+    font-weight: 600;
+    border-right: 2px solid var(--accent); /* Cursor */
+    padding-right: 5px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink { 50% { border-color: transparent; } }
+
+.sub-text {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 30px;
+    max-width: 80%;
+}
+
+/* === Buttons === */
+.buttons-container {
+    display: flex;
+    gap: 20px;
+}
+
+.main-btn {
+    text-decoration: none;
+    background: linear-gradient(to right, var(--accent), var(--accent-hover));
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.secondary-btn {
+    text-decoration: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: var(--glass);
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+.main-btn:hover, .secondary-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* === Avatar & Parallax === */
+.hero-image-container {
+    position: relative;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.avatar {
+    width: 100%;
+    max-width: 500px;
+    /* This makes the image look 3D and floating */
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); 
+    transition: transform 0.1s ease-out;
+}
+
+/* === Social Sidebar === */
+.social-sidebar {
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.social-sidebar a {
+    color: rgba(255,255,255,0.5);
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.social-sidebar a:hover {
+    color: var(--accent);
+    transform: scale(1.2);
+}
+
+/* === Entrance Animation === */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero { flex-direction: column-reverse; justify-content: center; text-align: center; height: auto; padding-top: 100px; }
+    .logo { font-size: 1.2rem; }
+    nav { display: none; } /* Hidden for mobile simplicity */
+    .hero-image-container { width: 80%; margin-bottom: 30px; }
+    .buttons-container { justify-content: center; }
+    .social-sidebar { display: none; }
+    .hero-content h1 { font-size: 3rem; }
+}
+
+
+/* === PROJECTS SECTION STYLES === */
+.projects-section {
+    padding: 80px 10%;
+    min-height: 100vh; /* Takes up full screen height */
+    position: relative;
+    z-index: 2;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title .highlight {
+    color: var(--accent);
+}
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.05); /* Glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    transition: 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.tech-stack {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tech-stack span {
+    font-size: 0.8rem;
+    background: rgba(0, 210, 255, 0.1);
+    color: var(--accent);
+    padding: 5px 12px;
+    border-radius: 15px;
+}
+
+.card-btn {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+    transition: 0.3s;
+}
+
+.card-btn:hover {
+    color: var(--accent);
+}
+
+/* =========================================
+   EXPERIENCE & EDUCATION CARD HOVER EFFECTS
+   ========================================= */
+
+/* This ensures your experience/education cards share the same 
+   base styling and hover effects as the project cards.
+*/
+
+/* 1. Base Card Styling (Glass Effect) */
+.timeline-box {
+    background: rgba(255, 255, 255, 0.05); /* Glassy background */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 30px;
+    transition: all 0.4s ease; /* Smooth transition for the hover effect */
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px; /* Spacing between cards */
+}
+
+/* 2. The Hover Effect (Move up + Glow) */
+.timeline-box:hover {
+    transform: translateY(-10px); /* Move up by 10px */
+    background: rgba(255, 255, 255, 0.1); /* Slightly brighter background */
+    border-color: var(--accent); /* Accent color border */
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2); /* Glowing shadow */
+}
+
+/* 3. Styling for list items inside the cards */
+.timeline-box ul li {
+    margin-bottom: 10px;
+    color: #ccc; /* Lighter text color */
+}
+
+/* 4. Make sure the "date" stands out */
+.timeline-box .date {
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* === CONTACT SECTION === */
+.contact-section {
+    padding: 100px 10%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 50px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 700px;
+    backdrop-filter: blur(10px);
+}
+
+.contact-content p {
+    color: #ccc;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.1rem;
+    color: var(--text-white);
+}
+
+.contact-item i {
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+.contact-btn {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* === FOOTER === */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
