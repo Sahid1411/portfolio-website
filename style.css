@@ -1,12 +1,15 @@
-/* === Color Variables === */
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
 :root {
     --bg-start: #0f0c29;
     --bg-middle: #302b63;
     --bg-end: #24243e;
-    --accent: #00d2ff; /* Cyan Blue for a tech feel */
+    --accent: #00d2ff;
     --accent-hover: #3a7bd5;
     --text-white: #ffffff;
-    --glass: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -16,15 +19,38 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Critical for mobile */
+}
+
 body {
     background: linear-gradient(135deg, var(--bg-start), var(--bg-middle), var(--bg-end));
     color: var(--text-white);
     min-height: 100vh;
-    overflow-x: hidden;
     position: relative;
 }
 
-/* === Floating Background Glow === */
+/* =========================================
+   2. REUSABLE COMPONENTS
+   ========================================= */
+section {
+    padding: 80px 10%; /* Default desktop padding */
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-white);
+}
+
+.section-title span, .highlight {
+    color: var(--accent);
+}
+
+/* Background Blob */
 .background-blob {
     position: absolute;
     top: -10%;
@@ -43,7 +69,9 @@ body {
     100% { transform: scale(1.1); }
 }
 
-/* === Header === */
+/* =========================================
+   3. HEADER & NAVIGATION
+   ========================================= */
 header {
     display: flex;
     justify-content: space-between;
@@ -51,6 +79,7 @@ header {
     padding: 25px 8%;
     width: 100%;
     z-index: 100;
+    position: relative; /* Changed from fixed for simpler mobile flow */
 }
 
 .logo {
@@ -67,6 +96,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
+    align-items: center;
 }
 
 nav ul li {
@@ -97,9 +127,11 @@ nav ul li a:hover {
     box-shadow: 0 0 15px var(--accent);
 }
 
-/* === Hero Section === */
+/* =========================================
+   4. HERO SECTION
+   ========================================= */
 .hero {
-    height: 85vh;
+    min-height: 85vh; /* Changed to min-height for flexibility */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -131,13 +163,13 @@ nav ul li a:hover {
     font-weight: 400;
     margin-bottom: 20px;
     color: #ddd;
-    height: 3rem; /* Fixed height to prevent jumping */
+    height: 3rem; 
 }
 
 .typing-text {
     color: var(--accent);
     font-weight: 600;
-    border-right: 2px solid var(--accent); /* Cursor */
+    border-right: 2px solid var(--accent);
     padding-right: 5px;
     animation: blink 0.7s infinite;
 }
@@ -151,7 +183,6 @@ nav ul li a:hover {
     max-width: 80%;
 }
 
-/* === Buttons === */
 .buttons-container {
     display: flex;
     gap: 20px;
@@ -186,7 +217,6 @@ nav ul li a:hover {
     transform: translateY(-3px);
 }
 
-/* === Avatar & Parallax === */
 .hero-image-container {
     position: relative;
     width: 45%;
@@ -197,19 +227,19 @@ nav ul li a:hover {
 .avatar {
     width: 100%;
     max-width: 500px;
-    /* This makes the image look 3D and floating */
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); 
     transition: transform 0.1s ease-out;
 }
 
-/* === Social Sidebar === */
+/* Social Sidebar */
 .social-sidebar {
-    position: absolute;
+    position: fixed; /* Fixed so it stays on screen */
     left: 40px;
     bottom: 40px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    z-index: 100;
 }
 
 .social-sidebar a {
@@ -223,228 +253,166 @@ nav ul li a:hover {
     transform: scale(1.2);
 }
 
-/* === Entrance Animation === */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s forwards;
+/* =========================================
+   5. ABOUT SECTION
+   ========================================= */
+.about-container { display: flex; gap: 40px; align-items: center; color: #e0e0e0; }
+.about-text p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; }
+
+.btn-download {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: 0.3s;
+    margin-top: 10px;
 }
+.btn-download:hover { background: var(--accent-hover); transform: translateY(-3px); }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
+/* =========================================
+   6. EXPERIENCE & PROJECTS (GRIDS)
+   ========================================= */
+.timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .hero { flex-direction: column-reverse; justify-content: center; text-align: center; height: auto; padding-top: 100px; }
-    .logo { font-size: 1.2rem; }
-    nav { display: none; } /* Hidden for mobile simplicity */
-    .hero-image-container { width: 80%; margin-bottom: 30px; }
-    .buttons-container { justify-content: center; }
-    .social-sidebar { display: none; }
-    .hero-content h1 { font-size: 3rem; }
-}
-
-
-/* === PROJECTS SECTION STYLES === */
-.projects-section {
-    padding: 80px 10%;
-    min-height: 100vh; /* Takes up full screen height */
-    position: relative;
-    z-index: 2;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-title .highlight {
-    color: var(--accent);
-}
-
-.projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background: rgba(255, 255, 255, 0.05); /* Glass effect */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* Timeline/Project Card Base */
+.timeline-box, .project-card, .contact-content, .skill-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 30px;
-    transition: 0.4s ease;
+    transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
 }
 
-.project-card:hover {
+/* Card Hovers */
+.timeline-box:hover, .project-card:hover, .skill-card:hover {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent);
     box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
 }
 
-.card-icon {
-    font-size: 2.5rem;
-    color: var(--accent);
-    margin-bottom: 20px;
+/* Timeline Specifics */
+.timeline-box { margin-bottom: 30px; border-left: 3px solid var(--accent); }
+.timeline-box h3 { color: #fff; font-size: 1.2rem; margin-bottom: 5px; }
+.timeline-box .date { color: var(--accent); font-weight: 600; display: block; margin-bottom: 15px; }
+.timeline-box ul { list-style-position: inside; color: #ccc; }
+.timeline-box ul li { margin-bottom: 10px; }
+
+/* Skills Grid */
+.skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.skill-card { text-align: center; }
+.skill-card i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
+.skill-card h3 { color: #fff; margin-bottom: 10px; }
+.skill-card p { color: #ccc; font-size: 0.9rem; }
+
+/* Projects Grid */
+.projects-container { 
+    display: grid; 
+    /* FIX: Changed 300px to 280px for better fit on small phones */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px; 
 }
 
-.project-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
+.card-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
+.project-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+.project-card p { font-size: 0.9rem; color: #ccc; margin-bottom: 20px; line-height: 1.6; }
 
-.project-card p {
-    font-size: 0.9rem;
-    color: #ccc;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
+.tech-stack { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.tech-stack span { font-size: 0.8rem; background: rgba(0, 210, 255, 0.1); color: var(--accent); padding: 5px 12px; border-radius: 15px; }
 
-.tech-stack {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-.tech-stack span {
-    font-size: 0.8rem;
-    background: rgba(0, 210, 255, 0.1);
-    color: var(--accent);
-    padding: 5px 12px;
-    border-radius: 15px;
-}
-
-.card-btn {
-    text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 2px;
-    transition: 0.3s;
-}
-
-.card-btn:hover {
-    color: var(--accent);
-}
+.card-btn { text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 2px; transition: 0.3s; }
+.card-btn:hover { color: var(--accent); }
 
 /* =========================================
-   EXPERIENCE & EDUCATION CARD HOVER EFFECTS
+   7. CONTACT & FOOTER
+   ========================================= */
+.contact-container { display: flex; justify-content: center; align-items: center; }
+.contact-content { max-width: 700px; backdrop-filter: blur(10px); text-align: center; }
+.contact-details { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; margin-top: 20px; }
+.contact-item { display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 1.1rem; color: var(--text-white); }
+.contact-item i { color: var(--accent); font-size: 1.2rem; }
+
+footer { text-align: center; padding: 30px; background: rgba(0, 0, 0, 0.2); color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; }
+
+/* =========================================
+   8. ANIMATIONS
+   ========================================= */
+.fade-in { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   9. MOBILE RESPONSIVENESS (THE FIXES)
    ========================================= */
 
-/* This ensures your experience/education cards share the same 
-   base styling and hover effects as the project cards.
-*/
+/* TABLET & SMALL LAPTOP (Max width 992px) */
+@media (max-width: 992px) {
+    section { padding: 60px 5%; } /* Less padding */
+    
+    .hero {
+        flex-direction: column-reverse; /* Stack image on top, text below */
+        justify-content: center;
+        text-align: center;
+        padding-top: 100px;
+    }
 
-/* 1. Base Card Styling (Glass Effect) */
-.timeline-box {
-    background: rgba(255, 255, 255, 0.05); /* Glassy background */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
-    border-radius: 20px; /* Rounded corners */
-    padding: 30px;
-    transition: all 0.4s ease; /* Smooth transition for the hover effect */
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 30px; /* Spacing between cards */
+    .hero-content { margin-top: 30px; }
+    .hero-image-container { width: 70%; margin-bottom: 20px; }
+    .hero-content h1 { font-size: 3.5rem; }
+    .typing-container { justify-content: center; display: flex; } /* Center the typing */
+    .buttons-container { justify-content: center; }
+    
+    /* Timeline becomes 1 column */
+    .timeline-grid { grid-template-columns: 1fr; }
+    .about-container { flex-direction: column; }
 }
 
-/* 2. The Hover Effect (Move up + Glow) */
-.timeline-box:hover {
-    transform: translateY(-10px); /* Move up by 10px */
-    background: rgba(255, 255, 255, 0.1); /* Slightly brighter background */
-    border-color: var(--accent); /* Accent color border */
-    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2); /* Glowing shadow */
+/* MOBILE PHONES (Max width 768px) */
+@media (max-width: 768px) {
+    /* Fix Navigation */
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    nav ul {
+        gap: 20px;
+        margin-left: 0;
+        padding: 0;
+        flex-wrap: wrap; /* Allow links to wrap to next line if needed */
+        justify-content: center;
+    }
+
+    nav ul li { margin-left: 0; } /* Remove left margin for centered gap */
+
+    /* Hero Text Adjustments */
+    .hero-content h1 { font-size: 2.8rem; }
+    .typing-container { font-size: 1.5rem; height: 2rem; }
+    .sub-text { font-size: 0.9rem; margin: 0 auto 30px auto; } /* Center text */
+
+    /* Hide Sidebar, it blocks view on mobile */
+    .social-sidebar { display: none; }
 }
 
-/* 3. Styling for list items inside the cards */
-.timeline-box ul li {
-    margin-bottom: 10px;
-    color: #ccc; /* Lighter text color */
-}
-
-/* 4. Make sure the "date" stands out */
-.timeline-box .date {
-    color: var(--accent);
-    font-weight: 600;
-    display: block;
-    margin-bottom: 15px;
-}
-
-/* === CONTACT SECTION === */
-.contact-section {
-    padding: 100px 10%;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.contact-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.contact-content {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 50px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    max-width: 700px;
-    backdrop-filter: blur(10px);
-}
-
-.contact-content p {
-    color: #ccc;
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-
-.contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 40px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    font-size: 1.1rem;
-    color: var(--text-white);
-}
-
-.contact-item i {
-    color: var(--accent);
-    font-size: 1.2rem;
-}
-
-.contact-btn {
-    display: inline-block;
-    margin-top: 10px;
-}
-
-/* === FOOTER === */
-footer {
-    text-align: center;
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.2);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
+/* SMALL MOBILE (Max width 480px) */
+@media (max-width: 480px) {
+    .hero-content h1 { font-size: 2.2rem; }
+    .section-title { font-size: 2rem; }
+    
+    /* Stack Buttons */
+    .buttons-container { flex-direction: column; width: 100%; }
+    .main-btn, .secondary-btn { width: 100%; justify-content: center; }
+    
+    /* Make contact info wrap if long */
+    .contact-item { font-size: 0.9rem; flex-direction: column; gap: 5px; }
 }
