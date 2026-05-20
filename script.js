@@ -43,9 +43,14 @@ const typeEffect = () => {
 }
 
 // Start typing after initial load
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(typeEffect, 1000);
-});
+// Start typing immediately if the element exists
+setTimeout(() => {
+    if (typingTextSpan) {
+        typeEffect();
+    } else {
+        console.error("Typing element not found!");
+    }
+}, 1000);
 
 // 2. Mouse Parallax Effect (The "Alive" Feeling)
 document.addEventListener("mousemove", (e) => {

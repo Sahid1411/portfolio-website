@@ -304,11 +304,18 @@ nav ul li a:hover {
 .timeline-box ul li { margin-bottom: 10px; }
 
 /* Skills Grid */
-.skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-.skill-card { text-align: center; }
-.skill-card i { font-size: 2rem; color: var(--accent); margin-bottom: 15px; }
-.skill-card h3 { color: #fff; margin-bottom: 10px; }
-.skill-card p { color: #ccc; font-size: 0.9rem; }
+.skills-container { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+}
+
+.skill-card { 
+    flex: 1 1 250px;       /* Grows and shrinks, starting at 250px */
+    max-width: 300px;      /* Prevents the lone bottom card from stretching entirely across the screen */
+    text-align: center; 
+}
 
 /* Projects Grid */
 .projects-container { 
